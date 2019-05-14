@@ -13,16 +13,14 @@ import java.util.Date;
  *
  */
 @TableName("sys_notice")
-@KeySequence("SYS_NOTICE_S")
 @Data
 public class Notice implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -905671463857122746L;
     /**
      * 主键
      */
-    @TableId(value = "NOTICE_ID", type = IdType.INPUT)
+    @TableId(value = "NOTICE_ID", type = IdType.AUTO)
     private Long noticeId;
     /**
      * 标题
@@ -42,7 +40,7 @@ public class Notice implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改时间
@@ -52,7 +50,7 @@ public class Notice implements Serializable {
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

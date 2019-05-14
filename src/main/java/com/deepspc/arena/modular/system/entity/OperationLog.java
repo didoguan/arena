@@ -12,16 +12,14 @@ import java.util.Date;
  * </p>
  */
 @TableName("sys_operation_log")
-@KeySequence("SYS_OPERATION_LOG_S")
 @Data
 public class OperationLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 7147126553426182460L;
     /**
      * 主键
      */
-    @TableId(value = "OPERATION_LOG_ID", type = IdType.INPUT)
+    @TableId(value = "OPERATION_LOG_ID", type = IdType.AUTO)
     private Long operationLogId;
     /**
      * 日志类型(字典)
@@ -36,7 +34,7 @@ public class OperationLog implements Serializable {
     /**
      * 用户id
      */
-    @TableField(value="USER_ID", el = "userId, jdbcType=BIGINT")
+    @TableField("USER_ID")
     private Long userId;
     /**
      * 类名称

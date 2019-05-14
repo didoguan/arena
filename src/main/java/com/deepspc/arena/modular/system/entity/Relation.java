@@ -13,26 +13,24 @@ import static com.baomidou.mybatisplus.annotation.IdType.ID_WORKER;
  * </p>
  */
 @TableName("sys_relation")
-@KeySequence("SYS_RELATION_S")
 @Data
 public class Relation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 8181280162612276561L;
     /**
      * 主键
      */
-    @TableId(value = "RELATION_ID", type = IdType.INPUT)
+    @TableId(value = "RELATION_ID", type = IdType.AUTO)
     private Long relationId;
     /**
      * 菜单id
      */
-    @TableField(value="MENU_ID", el = "menuId, jdbcType=BIGINT")
+    @TableField("MENU_ID")
     private Long menuId;
     /**
      * 角色id
      */
-    @TableField(value="ROLE_ID", el = "roleId, jdbcType=BIGINT")
+    @TableField("ROLE_ID")
     private Long roleId;
 
     @Override

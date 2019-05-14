@@ -13,16 +13,14 @@ import java.util.Date;
  *
  */
 @TableName("sys_login_log")
-@KeySequence("SYS_LOGIN_LOG_S")
 @Data
 public class LoginLog implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -8694066679249503487L;
     /**
      * 主键
      */
-    @TableId(value = "LOGIN_LOG_ID", type = IdType.INPUT)
+    @TableId(value = "LOGIN_LOG_ID", type = IdType.AUTO)
     private Long loginLogId;
     /**
      * 日志名称
@@ -32,7 +30,7 @@ public class LoginLog implements Serializable {
     /**
      * 管理员id
      */
-    @TableField(value="USER_ID", el = "userId, jdbcType=BIGINT")
+    @TableField("USER_ID")
     private Long userId;
     /**
      * 创建时间

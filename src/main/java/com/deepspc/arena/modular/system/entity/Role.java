@@ -12,21 +12,19 @@ import java.util.Date;
  * </p>
  */
 @TableName("sys_role")
-@KeySequence("SYS_ROLE_S")
 @Data
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 3296574873443999757L;
     /**
      * 主键id
      */
-    @TableId(value = "ROLE_ID", type = IdType.INPUT)
+    @TableId(value = "ROLE_ID", type = IdType.AUTO)
     private Long roleId;
     /**
      * 父角色id
      */
-    @TableField(value="PID", el = "pid, jdbcType=BIGINT")
+    @TableField("PID")
     private Long pid;
     /**
      * 角色名称
@@ -61,12 +59,12 @@ public class Role implements Serializable {
     /**
      * 创建用户
      */
-    @TableField(value = "CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改用户
      */
-    @TableField(value = "UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

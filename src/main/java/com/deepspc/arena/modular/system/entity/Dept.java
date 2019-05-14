@@ -13,21 +13,19 @@ import java.util.Date;
  *
  */
 @TableName("sys_dept")
-@KeySequence("SYS_DEPT_S")
 @Data
 public class Dept implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -7859176367130669747L;
     /**
      * 主键id
      */
-    @TableId(value = "DEPT_ID", type = IdType.INPUT)
+    @TableId(value = "DEPT_ID", type = IdType.AUTO)
     private Long deptId;
     /**
      * 父部门id
      */
-    @TableField(value="PID", el="pid, jdbcType=BIGINT")
+    @TableField("PID")
     private Long pid;
     /**
      * 父级ids
@@ -72,12 +70,12 @@ public class Dept implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", el="createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", el="updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

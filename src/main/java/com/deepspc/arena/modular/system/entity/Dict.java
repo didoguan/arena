@@ -12,21 +12,19 @@ import java.util.Date;
  * </p>
  */
 @TableName("sys_dict")
-@KeySequence("SYS_DICT_S")
 @Data
 public class Dict implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -6567761964380688270L;
     /**
      * 主键id
      */
-    @TableId(value = "DICT_ID", type = IdType.INPUT)
+    @TableId(value = "DICT_ID", type = IdType.AUTO)
     private Long dictId;
     /**
      * 父级字典id
      */
-    @TableField(value="PID", el = "pid, jdbcType=BIGINT")
+    @TableField("PID")
     private Long pid;
     /**
      * 字典名称
@@ -61,12 +59,12 @@ public class Dict implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

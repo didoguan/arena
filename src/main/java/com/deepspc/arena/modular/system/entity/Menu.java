@@ -13,16 +13,14 @@ import java.util.Date;
  *
  */
 @TableName("sys_menu")
-@KeySequence("SYS_MENU_S")
 @Data
 public class Menu implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 7203901561717850498L;
     /**
      * 主键id
      */
-    @TableId(value = "MENU_ID", type = IdType.INPUT)
+    @TableId(value = "MENU_ID", type = IdType.AUTO)
     private Long menuId;
     /**
      * 菜单编号
@@ -102,12 +100,12 @@ public class Menu implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value = "CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改人
      */
-    @TableField(value = "UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

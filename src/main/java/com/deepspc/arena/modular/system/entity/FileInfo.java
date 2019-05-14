@@ -14,16 +14,14 @@ import java.util.Date;
  *
  */
 @TableName("sys_file_info")
-@KeySequence("SYS_FILE_INFO_S")
 @Data
 public class FileInfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1613395153789139646L;
     /**
      * 主键id
      */
-    @TableId(value = "FILE_ID", type = IdType.INPUT)
+    @TableId(value = "FILE_ID", type = IdType.AUTO)
     private String fileId;
     /**
      * base64编码的文件
@@ -43,12 +41,12 @@ public class FileInfo implements Serializable {
     /**
      * 创建用户
      */
-    @TableField(value = "CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 修改用户
      */
-    @TableField(value = "UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
 
     @Override

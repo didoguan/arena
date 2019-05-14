@@ -13,16 +13,14 @@ import java.util.Date;
  *
  */
 @TableName("sys_user")
-@KeySequence("SYS_USER_S")
 @Data
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 6723824351483230053L;
     /**
      * 主键id
      */
-    @TableId(value = "USER_ID", type = IdType.INPUT)
+    @TableId(value = "USER_ID", type = IdType.AUTO)
     private Long userId;
     /**
      * 头像
@@ -77,7 +75,7 @@ public class User implements Serializable {
     /**
      * 部门id(多个逗号隔开)
      */
-    @TableField(value="DEPT_ID", el="deptId, jdbcType=BIGINT")
+    @TableField("DEPT_ID")
     private Long deptId;
     /**
      * 状态(字典)
@@ -92,7 +90,7 @@ public class User implements Serializable {
     /**
      * 创建人
      */
-    @TableField(value="CREATE_USER", el = "createUser, jdbcType=BIGINT", fill = FieldFill.INSERT)
+    @TableField(value="CREATE_USER", fill = FieldFill.INSERT)
     private Long createUser;
     /**
      * 更新时间
@@ -102,7 +100,7 @@ public class User implements Serializable {
     /**
      * 更新人
      */
-    @TableField(value="UPDATE_USER", el = "updateUser, jdbcType=BIGINT", fill = FieldFill.UPDATE)
+    @TableField(value="UPDATE_USER", fill = FieldFill.UPDATE)
     private Long updateUser;
     /**
      * 乐观锁

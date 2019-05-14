@@ -5,7 +5,6 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.page.PageResult;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class UserWrapper extends BaseControllerWrapper {
     protected void wrapTheMap(Map<String, Object> map) {
         map.put("sexName", ConstantFactory.me().getSexName((String) map.get("sex")));
         map.put("roleName", ConstantFactory.me().getRoleName((String) map.get("roleId")));
-        map.put("deptName", ConstantFactory.me().getDeptName(((BigDecimal) map.get("deptId")).longValue()));
+        map.put("deptName", ConstantFactory.me().getDeptName((Long) map.get("deptId")));
         map.put("statusName", ConstantFactory.me().getStatusName((String) map.get("status")));
     }
 

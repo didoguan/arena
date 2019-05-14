@@ -6,7 +6,6 @@ import com.deepspc.arena.core.page.PageResult;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
 import com.deepspc.arena.utils.ToolUtil;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class DeptWrapper extends BaseControllerWrapper {
 
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
-        Long pid = ((BigDecimal) map.get("pid")).longValue();
+        Long pid = (Long) map.get("pid");
 
         if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
             map.put("pName", "--");

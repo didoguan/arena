@@ -5,7 +5,6 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
 import com.deepspc.arena.utils.Contrast;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class LogWrapper extends BaseControllerWrapper {
     protected void wrapTheMap(Map<String, Object> map) {
         String message = (String) map.get("message");
 
-        Long userid = ((BigDecimal) map.get("userId")).longValue();
+        Long userid = (Long) map.get("userId");
         map.put("userName", ConstantFactory.me().getUserNameById(userid));
 
         //如果信息过长,则只截取前100位字符串

@@ -5,7 +5,6 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.page.PageResult;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class NoticeWrapper extends BaseControllerWrapper {
 
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
-        Long creater = ((BigDecimal) map.get("createUser")).longValue();
+        Long creater = (Long) map.get("createUser");
         map.put("createrName", ConstantFactory.me().getUserNameById(creater));
     }
 }

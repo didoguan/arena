@@ -21,7 +21,7 @@ public class FileInfo implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "FILE_ID", type = IdType.AUTO)
+    @TableId(value = "FILE_ID", type = IdType.ID_WORKER_STR)
     private String fileId;
     /**
      * base64编码的文件

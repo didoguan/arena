@@ -20,7 +20,7 @@ public class Relation implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "RELATION_ID", type = IdType.AUTO)
+    @TableId(value = "RELATION_ID", type = IdType.ID_WORKER)
     private Long relationId;
     /**
      * 菜单id

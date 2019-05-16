@@ -3,7 +3,7 @@ package com.deepspc.arena.modular.system.factory;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.deepspc.arena.core.common.constant.state.ManagerStatus;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.modular.system.entity.User;
 import com.deepspc.arena.modular.system.model.UserDto;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +27,7 @@ public class UserFactory {
             User user = new User();
             BeanUtils.copyProperties(userDto, user);
             user.setCreateTime(new Date());
-            user.setStatus(ManagerStatus.OK.getCode());
+            user.setStatus(BizEnum.ENABLE.getCode());
             user.setPassword(md5Password);
             user.setSalt(salt);
             return user;

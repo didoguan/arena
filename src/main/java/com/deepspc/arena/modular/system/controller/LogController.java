@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.toolkit.SqlRunner;
 import com.deepspc.arena.core.common.annotion.BussinessLog;
 import com.deepspc.arena.core.common.annotion.Permission;
 import com.deepspc.arena.core.common.constant.Const;
-import com.deepspc.arena.core.common.constant.state.BizLogType;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.modular.base.controller.BaseController;
 import com.deepspc.arena.modular.system.entity.OperationLog;
 import com.deepspc.arena.modular.system.service.OperationLogService;
@@ -38,8 +38,6 @@ public class LogController extends BaseController {
     /**
      * 跳转到日志管理的首页
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:34 PM
      */
     @RequestMapping("")
     public String index() {
@@ -49,8 +47,6 @@ public class LogController extends BaseController {
     /**
      * 查询操作日志列表
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:34 PM
      */
     @RequestMapping("/list")
     @Permission(Const.ADMIN_NAME)
@@ -58,13 +54,13 @@ public class LogController extends BaseController {
     public Object list(@RequestParam(required = false) String beginTime,
                        @RequestParam(required = false) String endTime,
                        @RequestParam(required = false) String logName,
-                       @RequestParam(required = false) Integer logType) {
+                       @RequestParam(required = false) String logType) {
 
         //获取分页参数
         Page page = LayuiPageFactory.defaultPage();
 
         //根据条件查询操作日志
-        List<Map<String, Object>> result = operationLogService.getOperationLogs(page, beginTime, endTime, logName, BizLogType.valueOf(logType));
+        List<Map<String, Object>> result = operationLogService.getOperationLogs(page, beginTime, endTime, logName, BizEnum.getMessage(logType));
 
         page.setRecords(new LogWrapper(result).wrap());
 
@@ -74,8 +70,6 @@ public class LogController extends BaseController {
     /**
      * 查询操作日志详情
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:34 PM
      */
     @RequestMapping("/detail/{id}")
     @Permission(Const.ADMIN_NAME)
@@ -89,8 +83,6 @@ public class LogController extends BaseController {
     /**
      * 清空日志
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:34 PM
      */
     @BussinessLog(value = "清空业务日志")
     @RequestMapping("/delLog")

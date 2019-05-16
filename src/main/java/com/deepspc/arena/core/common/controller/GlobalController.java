@@ -13,8 +13,6 @@ public class GlobalController {
 
     /**
      * 跳转到404页面
-     *
-     * @author fengshuonan
      */
     @RequestMapping(path = "/error")
     public String errorPage() {
@@ -23,8 +21,6 @@ public class GlobalController {
 
     /**
      * 跳转到session超时页面
-     *
-     * @author fengshuonan
      */
     @RequestMapping(path = "/sessionError")
     public String errorPageInfo(Model model) {

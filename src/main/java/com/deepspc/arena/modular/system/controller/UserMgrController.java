@@ -9,9 +9,9 @@ import com.deepspc.arena.core.common.annotion.Permission;
 import com.deepspc.arena.core.common.constant.Const;
 import com.deepspc.arena.core.common.constant.dictmap.UserDict;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
-import com.deepspc.arena.core.common.constant.state.ManagerStatus;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.datascope.DataScope;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
 import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
@@ -268,7 +268,7 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.CANT_FREEZE_ADMIN);
         }
         this.userService.assertAuth(userId);
-        this.userService.setStatus(userId, ManagerStatus.FREEZED.getCode());
+        this.userService.setStatus(userId, BizEnum.FREEZED.getCode());
         return SUCCESS_TIP;
     }
 
@@ -285,7 +285,7 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         this.userService.assertAuth(userId);
-        this.userService.setStatus(userId, ManagerStatus.OK.getCode());
+        this.userService.setStatus(userId, BizEnum.ENABLE.getCode());
         return SUCCESS_TIP;
     }
 

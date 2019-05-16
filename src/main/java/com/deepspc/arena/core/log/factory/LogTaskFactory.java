@@ -1,7 +1,6 @@
 package com.deepspc.arena.core.log.factory;
 
-import com.deepspc.arena.core.common.constant.state.LogSucceed;
-import com.deepspc.arena.core.common.constant.state.LogType;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.log.LogManager;
 import com.deepspc.arena.modular.system.entity.LoginLog;
 import com.deepspc.arena.modular.system.entity.OperationLog;
@@ -28,7 +27,7 @@ public class LogTaskFactory {
             @Override
             public void run() {
                 try {
-                    LoginLog loginLog = LogFactory.createLoginLog(LogType.LOGIN, userId, null, ip);
+                    LoginLog loginLog = LogFactory.createLoginLog(BizEnum.OPERATION.getCode(), userId, null, ip);
                     loginLogMapper.insert(loginLog);
                 } catch (Exception e) {
                     logger.error("创建登录日志异常!", e);
@@ -42,7 +41,7 @@ public class LogTaskFactory {
             @Override
             public void run() {
                 LoginLog loginLog = LogFactory.createLoginLog(
-                        LogType.LOGIN_FAIL, null, "账号:" + username + "," + msg, ip);
+                        BizEnum.OPERATION.getCode(), null, "账号:" + username + "," + msg, ip);
                 try {
                     loginLogMapper.insert(loginLog);
                 } catch (Exception e) {
@@ -56,7 +55,7 @@ public class LogTaskFactory {
         return new TimerTask() {
             @Override
             public void run() {
-                LoginLog loginLog = LogFactory.createLoginLog(LogType.EXIT, userId, null, ip);
+                LoginLog loginLog = LogFactory.createLoginLog(BizEnum.OPERATION.getCode(), userId, null, ip);
                 try {
                     loginLogMapper.insert(loginLog);
                 } catch (Exception e) {
@@ -71,7 +70,7 @@ public class LogTaskFactory {
             @Override
             public void run() {
                 OperationLog operationLog = LogFactory.createOperationLog(
-                        LogType.BUSSINESS, userId, bussinessName, clazzName, methodName, msg, LogSucceed.SUCCESS);
+                        BizEnum.BUSSINESS.getCode(), userId, bussinessName, clazzName, methodName, msg, BizEnum.SUCCESS.getMessage());
                 try {
                     operationLogMapper.insert(operationLog);
                 } catch (Exception e) {
@@ -87,7 +86,7 @@ public class LogTaskFactory {
             public void run() {
                 String msg = ToolUtil.getExceptionMsg(exception);
                 OperationLog operationLog = LogFactory.createOperationLog(
-                        LogType.EXCEPTION, userId, "", null, null, msg, LogSucceed.FAIL);
+                        BizEnum.EXCEPTION.getCode(), userId, "", null, null, msg, BizEnum.FAIL.getMessage());
                 try {
                     operationLogMapper.insert(operationLog);
                 } catch (Exception e) {

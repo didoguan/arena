@@ -2,7 +2,7 @@ package com.deepspc.arena.modular.system.warpper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
-import com.deepspc.arena.core.enums.YesOrNotEnum;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.page.PageResult;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
 
@@ -36,10 +36,10 @@ public class MenuWrapper extends BaseControllerWrapper {
         map.put("statusName", ConstantFactory.me().getMenuStatusName((String) map.get("status")));
 
         String menuFlag = (String) map.get("menuFlag");
-        for (YesOrNotEnum value : YesOrNotEnum.values()) {
-            if(value.name().equals(menuFlag)){
-                map.put("isMenuName", value.getDesc());
-            }
+        if (BizEnum.YES.getCode().equals(menuFlag)) {
+            map.put("isMenuName", BizEnum.YES.getMessage());
+        } else if (BizEnum.NO.getCode().equals(menuFlag)) {
+            map.put("isMenuName", BizEnum.NO.getMessage());
         }
     }
 

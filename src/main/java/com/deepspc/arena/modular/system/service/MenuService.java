@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
-import com.deepspc.arena.core.common.constant.state.MenuStatus;
 import com.deepspc.arena.core.common.node.MenuNode;
 import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
 import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
@@ -56,7 +56,7 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         //组装属性，设置父级菜单编号
         Menu resultMenu = this.menuSetPcode(menuDto);
 
-        resultMenu.setStatus(MenuStatus.ENABLE.getCode());
+        resultMenu.setStatus(BizEnum.ENABLE.getCode());
         resultMenu.setCreateTime(new Date());
         this.save(resultMenu);
     }

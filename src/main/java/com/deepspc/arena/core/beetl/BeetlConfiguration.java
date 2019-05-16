@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * beetl拓展配置,绑定一些工具类,方便在模板中直接调用
@@ -27,9 +29,14 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
 
     @Override
     public void initOther() {
+
+        //全局共享变量
+        Map<String, Object> shared = new HashMap<>();
+        shared.put("systemName", appNameProperties.getName());
+        groupTemplate.setSharedVars(shared);
+
         groupTemplate.registerFunctionPackage("tool", new ToolUtil());
         groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
-        groupTemplate.registerFunctionPackage("systemName", appNameProperties.getName());
 
         groupTemplate.registerFunction("env", new Function() {
             @Override

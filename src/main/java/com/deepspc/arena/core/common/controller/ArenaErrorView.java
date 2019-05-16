@@ -10,7 +10,7 @@ import java.util.Map;
  * 错误页面的默认跳转(例如请求404的时候,默认走这个视图解析器)
  *
  */
-public class StoneErrorView implements View {
+public class ArenaErrorView implements View {
 
     @Override
     public String getContentType() {

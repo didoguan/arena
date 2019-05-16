@@ -1,6 +1,6 @@
 package com.deepspc.arena.core.common.node;
 
-import com.deepspc.arena.core.enums.YesOrNotEnum;
+import com.deepspc.arena.core.enums.BizEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -112,7 +112,7 @@ public class MenuNode implements Comparable, Serializable {
         }
 
         //剔除非菜单
-        nodes.removeIf(node -> !node.getIsmenu().equals(YesOrNotEnum.Y.name()));
+        nodes.removeIf(node -> !node.getIsmenu().equals(BizEnum.YES.getCode()));
 
         //对菜单排序，返回列表按菜单等级，序号的排序方式排列
         Collections.sort(nodes);

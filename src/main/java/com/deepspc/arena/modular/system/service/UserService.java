@@ -4,10 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.deepspc.arena.core.common.constant.Const;
-import com.deepspc.arena.core.common.constant.state.ManagerStatus;
 import com.deepspc.arena.core.common.node.MenuNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.datascope.DataScope;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.shiro.ShiroKit;
@@ -87,7 +87,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN);
         }
         this.assertAuth(userId);
-        this.setStatus(userId, ManagerStatus.DELETED.getCode());
+        this.setStatus(userId, BizEnum.DELETED.getCode());
     }
 
     /**

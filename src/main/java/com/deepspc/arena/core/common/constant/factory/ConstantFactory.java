@@ -5,8 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.deepspc.arena.core.common.constant.cache.Cache;
 import com.deepspc.arena.core.common.constant.cache.CacheKey;
-import com.deepspc.arena.core.common.constant.state.ManagerStatus;
-import com.deepspc.arena.core.common.constant.state.MenuStatus;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.modular.system.entity.*;
 import com.deepspc.arena.modular.system.mapper.*;
@@ -251,12 +250,12 @@ public class ConstantFactory implements IConstantFactory {
 
     @Override
     public String getStatusName(String status) {
-        return ManagerStatus.getDescription(status);
+        return BizEnum.getMessage(status);
     }
 
     @Override
     public String getMenuStatusName(String status) {
-        return MenuStatus.getDescription(status);
+        return BizEnum.getMessage(status);
     }
 
     @Override

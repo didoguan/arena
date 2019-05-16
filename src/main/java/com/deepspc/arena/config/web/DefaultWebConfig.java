@@ -1,6 +1,6 @@
 package com.deepspc.arena.config.web;
 
-import com.deepspc.arena.core.common.controller.StoneErrorView;
+import com.deepspc.arena.core.common.controller.ArenaErrorView;
 import com.deepspc.arena.core.listener.ConfigListener;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -49,8 +49,8 @@ public class DefaultWebConfig implements WebMvcConfigurer {
      * 默认错误页面，返回json
      */
     @Bean("error")
-    public StoneErrorView error() {
-        return new StoneErrorView();
+    public ArenaErrorView error() {
+        return new ArenaErrorView();
     }
 	
 	/**

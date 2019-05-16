@@ -1,7 +1,6 @@
 package com.deepspc.arena.core.log.factory;
 
-import com.deepspc.arena.core.common.constant.state.LogSucceed;
-import com.deepspc.arena.core.common.constant.state.LogType;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.modular.system.entity.LoginLog;
 import com.deepspc.arena.modular.system.entity.OperationLog;
 
@@ -15,15 +14,15 @@ public class LogFactory {
     /**
      * 创建操作日志
      */
-    public static OperationLog createOperationLog(LogType logType, Long userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
+    public static OperationLog createOperationLog(String logType, Long userId, String bussinessName, String clazzName, String methodName, String msg, String succeed) {
         OperationLog operationLog = new OperationLog();
-        operationLog.setLogType(logType.getMessage());
+        operationLog.setLogType(logType);
         operationLog.setLogName(bussinessName);
         operationLog.setUserId(userId);
         operationLog.setClassName(clazzName);
         operationLog.setMethod(methodName);
         operationLog.setCreateTime(new Date());
-        operationLog.setSucceed(succeed.getMessage());
+        operationLog.setSucceed(succeed);
         operationLog.setMessage(msg);
         return operationLog;
     }
@@ -31,12 +30,12 @@ public class LogFactory {
     /**
      * 创建登录日志
      */
-    public static LoginLog createLoginLog(LogType logType, Long userId, String msg, String ip) {
+    public static LoginLog createLoginLog(String logType, Long userId, String msg, String ip) {
         LoginLog loginLog = new LoginLog();
-        loginLog.setLogName(logType.getMessage());
+        loginLog.setLogName(logType);
         loginLog.setUserId(userId);
         loginLog.setCreateTime(new Date());
-        loginLog.setSucceed(LogSucceed.SUCCESS.getMessage());
+        loginLog.setSucceed(BizEnum.SUCCESS.getMessage());
         loginLog.setIpAddress(ip);
         loginLog.setMessage(msg);
         return loginLog;

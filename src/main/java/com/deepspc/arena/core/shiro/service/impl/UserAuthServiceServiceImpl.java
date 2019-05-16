@@ -2,7 +2,7 @@ package com.deepspc.arena.core.shiro.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
-import com.deepspc.arena.core.common.constant.state.ManagerStatus;
+import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.shiro.ShiroKit;
 import com.deepspc.arena.core.shiro.ShiroUser;
 import com.deepspc.arena.core.shiro.service.UserAuthService;
@@ -52,7 +52,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
             throw new CredentialsException();
         }
         // 账号被冻结
-        if (!user.getStatus().equals(ManagerStatus.OK.getCode())) {
+        if (!user.getStatus().equals(BizEnum.ENABLE.getCode())) {
             throw new LockedAccountException();
         }
         return user;

@@ -58,7 +58,6 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //类型的父级id都为0
         dict.setPid(0L);
-        dict.setCreateTime(new Date());
         this.save(dict);
     }
 
@@ -72,7 +71,6 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //字典的父级id为字典tyeId
         dict.setPid(dictDto.getDictTypeId());
-        dict.setCreateTime(new Date());
         this.save(dict);
     }
 

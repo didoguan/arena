@@ -46,7 +46,6 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileId(IdWorker.getIdStr());
         fileInfo.setFileData(avatar);
-        fileInfo.setCreateTime(new Date());
         this.save(fileInfo);
 
         //更新用户的头像

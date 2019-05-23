@@ -70,7 +70,7 @@ public class DeptController extends BaseController {
     @RequestMapping("/dept_update")
     public String deptUpdate(@RequestParam("deptId") Long deptId) {
 
-        if (ToolUtil.isEmpty(deptId)) {
+        if (null == deptId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }

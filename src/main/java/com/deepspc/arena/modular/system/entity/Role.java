@@ -24,17 +24,17 @@ public class Role implements Serializable {
     /**
      * 父角色id
      */
-    @TableField("PID")
+    @TableField(value="PID", strategy = FieldStrategy.NOT_NULL)
     private Long pid;
     /**
      * 角色名称
      */
-    @TableField("NAME")
+    @TableField(value="NAME", strategy = FieldStrategy.NOT_NULL)
     private String name;
     /**
      * 角色编码
      */
-    @TableField("ROLE_CODE")
+    @TableField(value="ROLE_CODE", strategy = FieldStrategy.NOT_NULL)
     private String roleCode;
     /**
      * 角色描述

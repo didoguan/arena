@@ -58,7 +58,6 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         Menu resultMenu = this.menuSetPcode(menuDto);
 
         resultMenu.setStatus(BizEnum.ENABLE.getCode());
-        resultMenu.setCreateTime(new Date());
         this.save(resultMenu);
     }
 

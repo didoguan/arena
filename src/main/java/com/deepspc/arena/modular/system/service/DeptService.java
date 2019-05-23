@@ -68,9 +68,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
 
     /**
      * 删除部门
-     *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:16 PM
      */
     @Transactional
     public void deleteDept(Long deptId) {
@@ -90,8 +87,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     /**
      * 获取ztree的节点列表
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:16 PM
      */
     public List<ZTreeNode> tree() {
         return this.baseMapper.tree();
@@ -100,8 +95,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     /**
      * 获取ztree的节点列表
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:16 PM
      */
     public List<TreeviewNode> treeviewNodes() {
         return this.baseMapper.treeviewNodes();
@@ -110,8 +103,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     /**
      * 获取所有部门列表
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:16 PM
      */
     public Page<Map<String, Object>> list(String condition, String deptId) {
         Page page = LayuiPageFactory.defaultPage();
@@ -121,8 +112,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     /**
      * 设置部门的父级ids
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 4:58 PM
      */
     private void deptSetPids(Dept dept) {
         if (ToolUtil.isEmpty(dept.getPid()) || dept.getPid().equals(0L)) {

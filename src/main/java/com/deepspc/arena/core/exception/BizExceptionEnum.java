@@ -67,7 +67,7 @@ public enum BizExceptionEnum {
      */
     AUTH_REQUEST_ERROR(400, "账号密码错误"),
 
-    FIELD_UNAVAIL(412, "字段不符号要求");
+    FIELD_UNAVAIL(412, "字段不符合要求");
 
     BizExceptionEnum(int code, String message) {
         this.code = code;

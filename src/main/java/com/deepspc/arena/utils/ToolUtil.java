@@ -103,8 +103,6 @@ public class ToolUtil {
     /**
      * 获取ip地址
      *
-     * @author fengshuonan
-     * @Date 2018/5/15 下午6:36
      */
     public static String getIP() {
         try {

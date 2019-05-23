@@ -32,7 +32,12 @@ public class Role implements Serializable {
     @TableField("NAME")
     private String name;
     /**
-     * 提示
+     * 角色编码
+     */
+    @TableField("ROLE_CODE")
+    private String roleCode;
+    /**
+     * 角色描述
      */
     @TableField("DESCRIPTION")
     private String description;
@@ -73,6 +78,7 @@ public class Role implements Serializable {
                 ", roleId=" + roleId +
                 ", pid=" + pid +
                 ", name=" + name +
+                ", roleCode=" + roleCode +
                 ", description=" + description +
                 ", sort=" + sort +
                 ", version=" + version +

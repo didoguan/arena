@@ -37,7 +37,8 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
     public void addDict(DictDto dictDto) {
 
         if (ToolUtil.isOneEmpty(dictDto, dictDto.getCode(), dictDto.getName())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         if (ToolUtil.isEmpty(dictDto.getDictTypeId())) {

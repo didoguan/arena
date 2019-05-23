@@ -5,8 +5,8 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollectionUtil;
 import com.deepspc.arena.core.common.constant.DefaultAvatar;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
+import com.deepspc.arena.core.exception.BizExceptionEnum;
 import com.deepspc.arena.core.exception.CoreExceptionEnum;
-import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.core.reqres.response.ResponseData;
@@ -111,7 +111,8 @@ public class SystemController extends BaseController {
                                @RequestParam("treeUrl") String treeUrl, Model model) {
 
         if (ToolUtil.isOneEmpty(formName, formId, treeUrl)) {
-            throw new RequestEmptyException("请求数据不完整！");
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         try {
@@ -119,7 +120,8 @@ public class SystemController extends BaseController {
             model.addAttribute("formId", URLDecoder.decode(formId, "UTF-8"));
             model.addAttribute("treeUrl", URLDecoder.decode(treeUrl, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            throw new RequestEmptyException("请求数据不完整！");
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         return "/common/tree_dlg.html";
@@ -134,7 +136,7 @@ public class SystemController extends BaseController {
     public Object uploadAvatar(@RequestParam String avatar) {
 
         if (ToolUtil.isEmpty(avatar)) {
-            throw new RequestEmptyException("请求头像为空");
+            throw new ServiceException("请求头像为空");
         }
 
         avatar = avatar.substring(avatar.indexOf(",") + 1);
@@ -154,7 +156,8 @@ public class SystemController extends BaseController {
 
         ShiroUser currentUser = ShiroKit.getUser();
         if (currentUser == null) {
-            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER.getCode(),
+                                        CoreExceptionEnum.NO_CURRENT_USER.getMessage());
         }
 
         //获取当前用户的头像id
@@ -180,7 +183,8 @@ public class SystemController extends BaseController {
             response.getOutputStream().write(decode);
         } catch (IOException e) {
             log.error("获取图片的流错误！", avatar);
-            throw new ServiceException(CoreExceptionEnum.SERVICE_ERROR);
+            throw new ServiceException(CoreExceptionEnum.SERVICE_ERROR.getCode(),
+                                        CoreExceptionEnum.SERVICE_ERROR.getMessage());
         }
 
         return null;
@@ -196,7 +200,8 @@ public class SystemController extends BaseController {
 
         ShiroUser currentUser = ShiroKit.getUser();
         if (currentUser == null) {
-            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER.getCode(),
+                                        CoreExceptionEnum.NO_CURRENT_USER.getMessage());
         }
 
         User user = userService.getById(currentUser.getId());

@@ -73,7 +73,8 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/menu_edit")
     public String menuEdit(@RequestParam Long menuId) {
         if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //获取菜单当前信息，记录日志用
@@ -142,7 +143,8 @@ public class MenuController extends BaseController {
     @ResponseBody
     public ResponseData remove(@RequestParam Long menuId) {
         if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //缓存菜单的名称
@@ -161,7 +163,8 @@ public class MenuController extends BaseController {
     @ResponseBody
     public ResponseData view(@PathVariable Long menuId) {
         if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         Menu menu = this.menuService.getById(menuId);
         return ResponseData.success(menu);
@@ -175,7 +178,8 @@ public class MenuController extends BaseController {
     @ResponseBody
     public ResponseData getMenuInfo(@RequestParam Long menuId) {
         if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         Menu menu = this.menuService.getById(menuId);

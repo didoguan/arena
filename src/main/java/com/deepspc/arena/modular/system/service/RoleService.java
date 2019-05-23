@@ -10,7 +10,6 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.modular.system.entity.Relation;
@@ -51,9 +50,9 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void addRole(Role role) {
-
         if (ToolUtil.isOneEmpty(role, role.getName(), role.getPid(), role.getDescription())) {
-            throw new RequestEmptyException();
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                            BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         role.setCreateTime(new Date());
         role.setRoleId(null);
@@ -68,7 +67,8 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public void editRole(RoleDto roleDto) {
 
         if (ToolUtil.isOneEmpty(roleDto, roleDto.getName(), roleDto.getPid(), roleDto.getDescription())) {
-            throw new RequestEmptyException();
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         Role old = this.getById(roleDto.getRoleId());
@@ -110,12 +110,14 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
     public void delRoleById(Long roleId) {
 
         if (ToolUtil.isEmpty(roleId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                            BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //不能删除超级管理员角色
         if (roleId.equals(Const.ADMIN_ROLE_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN);
+            throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN.getCode(),
+                                            BizExceptionEnum.CANT_DELETE_ADMIN.getMessage());
         }
 
         //缓存被删除的角色名称

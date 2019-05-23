@@ -24,7 +24,8 @@ public class DictFieldWarpperFactory {
                 Method method = IConstantFactory.class.getMethod(methodName, Integer.class);
                 return method.invoke(constantFactory, Integer.parseInt(parameter.toString()));
             } catch (Exception e1) {
-                throw new ServiceException(BizExceptionEnum.ERROR_WRAPPER_FIELD);
+                throw new ServiceException(BizExceptionEnum.ERROR_WRAPPER_FIELD.getCode(),
+                                            BizExceptionEnum.ERROR_WRAPPER_FIELD.getMessage());
             }
         }
     }

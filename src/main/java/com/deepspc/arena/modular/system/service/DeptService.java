@@ -38,7 +38,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     public void addDept(Dept dept) {
 
         if (ToolUtil.isOneEmpty(dept, dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //完善pids,根据pid拿到pid的pids
@@ -55,7 +56,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     public void editDept(Dept dept) {
 
         if (ToolUtil.isOneEmpty(dept, dept.getDeptId(), dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //完善pids,根据pid拿到pid的pids

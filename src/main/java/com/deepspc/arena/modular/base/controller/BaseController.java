@@ -92,7 +92,8 @@ public class BaseController {
             final FileInputStream inputStream = new FileInputStream(filePath);
             return renderFile(fileName, inputStream);
         } catch (FileNotFoundException e) {
-            throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR);
+            throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR.getCode(),
+                                        CoreExceptionEnum.FILE_READING_ERROR.getMessage());
         }
     }
 

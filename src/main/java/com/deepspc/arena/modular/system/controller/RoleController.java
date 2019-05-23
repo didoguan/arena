@@ -74,7 +74,8 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/role_edit")
     public String roleEdit(@RequestParam Long roleId) {
         if (ToolUtil.isEmpty(roleId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         Role role = this.roleService.getById(roleId);
         LogObjectHolder.me().set(role);
@@ -89,7 +90,8 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/role_assign/{roleId}")
     public String roleAssign(@PathVariable("roleId") Long roleId, Model model) {
         if (ToolUtil.isEmpty(roleId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         model.addAttribute("roleId", roleId);
         return PREFIX + "/role_assign.html";
@@ -155,7 +157,8 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseData view(@PathVariable Long roleId) {
         if (ToolUtil.isEmpty(roleId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         Role role = this.roleService.getById(roleId);
         Map<String, Object> roleMap = BeanUtil.beanToMap(role);
@@ -177,7 +180,8 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseData setAuthority(@RequestParam("roleId") Long roleId, @RequestParam("ids") String ids) {
         if (ToolUtil.isOneEmpty(roleId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.roleService.setAuthority(roleId, ids);
         return SUCCESS_TIP;

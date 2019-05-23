@@ -12,10 +12,9 @@ public class ServiceException extends RuntimeException {
         this.errorMessage = errorMessage;
     }
 
-    public ServiceException(AbstractBaseExceptionEnum exception) {
-        super(exception.getMessage());
-        this.code = exception.getCode();
-        this.errorMessage = exception.getMessage();
+    public ServiceException(String errorMessage) {
+        super(errorMessage);
+        this.errorMessage = errorMessage;
     }
 
     public Integer getCode() {

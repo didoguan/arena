@@ -54,7 +54,8 @@ public class ToolUtil {
             }
             return md5StrBuff.toString();
         } catch (Exception e) {
-            throw new ServiceException(CoreExceptionEnum.ENCRYPT_ERROR);
+            throw new ServiceException(CoreExceptionEnum.ENCRYPT_ERROR.getCode(),
+                    CoreExceptionEnum.ENCRYPT_ERROR.getMessage());
         }
     }
 

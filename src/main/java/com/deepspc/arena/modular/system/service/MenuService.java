@@ -11,7 +11,6 @@ import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.listener.ConfigListener;
 import com.deepspc.arena.modular.system.entity.Menu;
@@ -44,13 +43,15 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     public void addMenu(MenuDto menuDto) {
 
         if (ToolUtil.isOneEmpty(menuDto, menuDto.getCode(), menuDto.getName(), menuDto.getPid(), menuDto.getMenuFlag(), menuDto.getUrl())) {
-            throw new RequestEmptyException();
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //判断是否已经存在该编号
         String existedMenuName = ConstantFactory.me().getMenuNameByCode(menuDto.getCode());
         if (StrUtil.isNotEmpty(existedMenuName)) {
-            throw new ServiceException(BizExceptionEnum.EXISTED_THE_MENU);
+            throw new ServiceException(BizExceptionEnum.EXISTED_THE_MENU.getCode(),
+                                        BizExceptionEnum.EXISTED_THE_MENU.getMessage());
         }
 
         //组装属性，设置父级菜单编号
@@ -211,7 +212,8 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
             //如果编号和父编号一致会导致无限递归
             if (menuParam.getCode().equals(menuParam.getPcode())) {
-                throw new ServiceException(BizExceptionEnum.MENU_PCODE_COINCIDENCE);
+                throw new ServiceException(BizExceptionEnum.MENU_PCODE_COINCIDENCE.getCode(),
+                                            BizExceptionEnum.MENU_PCODE_COINCIDENCE.getMessage());
             }
 
             resultMenu.setLevels(pLevels + 1);

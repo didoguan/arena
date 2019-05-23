@@ -9,7 +9,8 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.common.node.TreeviewNode;
 import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
-import com.deepspc.arena.core.exception.RequestEmptyException;
+import com.deepspc.arena.core.exception.BizExceptionEnum;
+import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.core.reqres.response.ResponseData;
 import com.deepspc.arena.core.tree.DefaultTreeBuildFactory;
@@ -70,7 +71,8 @@ public class DeptController extends BaseController {
     public String deptUpdate(@RequestParam("deptId") Long deptId) {
 
         if (ToolUtil.isEmpty(deptId)) {
-            throw new RequestEmptyException();
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //缓存部门修改前详细信息

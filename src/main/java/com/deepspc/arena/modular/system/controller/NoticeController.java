@@ -102,7 +102,8 @@ public class NoticeController extends BaseController {
     @BussinessLog(value = "新增通知", key = "title", dict = NoticeMap.class)
     public Object add(Notice notice) {
         if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         notice.setCreateUser(ShiroKit.getUserNotNull().getId());
         notice.setCreateTime(new Date());
@@ -136,7 +137,8 @@ public class NoticeController extends BaseController {
     @BussinessLog(value = "修改通知", key = "title", dict = NoticeMap.class)
     public Object update(Notice notice) {
         if (ToolUtil.isOneEmpty(notice, notice.getNoticeId(), notice.getTitle(), notice.getContent())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         Notice old = this.noticeService.getById(notice.getNoticeId());
         old.setTitle(notice.getTitle());

@@ -48,7 +48,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         // 判断账号是否重复
         User theUser = this.getByAccount(user.getAccount());
         if (theUser != null) {
-            throw new ServiceException(BizExceptionEnum.USER_ALREADY_REG);
+            throw new ServiceException(BizExceptionEnum.USER_ALREADY_REG.getCode(),
+                    BizExceptionEnum.USER_ALREADY_REG.getMessage());
         }
 
         // 完善账号信息
@@ -72,7 +73,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             if (shiroUser.getId().equals(user.getUserId())) {
                 this.updateById(UserFactory.editUser(user, oldUser));
             } else {
-                throw new ServiceException(BizExceptionEnum.NO_PERMITION);
+                throw new ServiceException(BizExceptionEnum.NO_PERMITION.getCode(),
+                        BizExceptionEnum.NO_PERMITION.getMessage());
             }
         }
     }
@@ -84,7 +86,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
         //不能删除超级管理员
         if (userId.equals(Const.ADMIN_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN);
+            throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN.getCode(),
+                    BizExceptionEnum.CANT_DELETE_ADMIN.getMessage());
         }
         this.assertAuth(userId);
         this.setStatus(userId, BizEnum.DELETED.getCode());
@@ -111,7 +114,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             user.setPassword(newMd5);
             this.updateById(user);
         } else {
-            throw new ServiceException(BizExceptionEnum.OLD_PWD_NOT_RIGHT);
+            throw new ServiceException(BizExceptionEnum.OLD_PWD_NOT_RIGHT.getCode(),
+                    BizExceptionEnum.OLD_PWD_NOT_RIGHT.getMessage());
         }
     }
 
@@ -164,7 +168,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         if (deptDataScope.contains(deptId)) {
             return;
         } else {
-            throw new ServiceException(BizExceptionEnum.NO_PERMITION);
+            throw new ServiceException(BizExceptionEnum.NO_PERMITION.getCode(),
+                    BizExceptionEnum.NO_PERMITION.getMessage());
         }
 
     }

@@ -1,6 +1,6 @@
 package com.deepspc.arena.core.exception;
 
-public enum CoreExceptionEnum implements AbstractBaseExceptionEnum {
+public enum CoreExceptionEnum {
 
     NO_CURRENT_USER(700, "当前没有登录的用户"),
 
@@ -26,13 +26,19 @@ public enum CoreExceptionEnum implements AbstractBaseExceptionEnum {
         this.message = message;
     }
 
-    @Override
     public Integer getCode() {
         return code;
     }
 
-    @Override
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

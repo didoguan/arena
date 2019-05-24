@@ -16,12 +16,10 @@ import com.deepspc.arena.core.listener.ConfigListener;
 import com.deepspc.arena.modular.system.entity.Menu;
 import com.deepspc.arena.modular.system.mapper.MenuMapper;
 import com.deepspc.arena.modular.system.model.MenuDto;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +39,6 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
      */
     @Transactional
     public void addMenu(MenuDto menuDto) {
-
-        if (ToolUtil.isOneEmpty(menuDto, menuDto.getCode(), menuDto.getName(), menuDto.getPid(), menuDto.getMenuFlag(), menuDto.getUrl())) {
-            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
-                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
-        }
 
         //判断是否已经存在该编号
         String existedMenuName = ConstantFactory.me().getMenuNameByCode(menuDto.getCode());
@@ -199,7 +192,8 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         Menu resultMenu = new Menu();
         BeanUtil.copyProperties(menuParam, resultMenu);
 
-        if (ToolUtil.isEmpty(menuParam.getPid()) || menuParam.getPid().equals(0L)) {
+        if (null == menuParam.getPid() ||
+                (null != menuParam.getPid() && menuParam.getPid().equals(0L))) {
             resultMenu.setPcode("0");
             resultMenu.setPcodes("[0],");
             resultMenu.setLevels(1);

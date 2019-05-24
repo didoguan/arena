@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -71,7 +72,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/add")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData add(DictDto dictDto) {
+    public ResponseData add(@Valid DictDto dictDto) {
         this.dictService.addDict(dictDto);
         return SUCCESS_TIP;
     }

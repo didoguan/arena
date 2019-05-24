@@ -10,12 +10,10 @@ import com.deepspc.arena.core.exception.BizExceptionEnum;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.modular.system.entity.Dept;
 import com.deepspc.arena.modular.system.mapper.DeptMapper;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,15 +34,8 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void addDept(Dept dept) {
-
-        if (ToolUtil.isOneEmpty(dept, dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
-            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
-                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
-        }
-
         //完善pids,根据pid拿到pid的pids
         this.deptSetPids(dept);
-        dept.setCreateTime(new Date());
         this.save(dept);
     }
 
@@ -55,14 +46,13 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     @Transactional(rollbackFor = Exception.class)
     public void editDept(Dept dept) {
 
-        if (ToolUtil.isOneEmpty(dept, dept.getDeptId(), dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
+        if (null == dept || null == dept.getDeptId()) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                     BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //完善pids,根据pid拿到pid的pids
         this.deptSetPids(dept);
-        dept.setUpdateTime(new Date());
         this.updateById(dept);
     }
 
@@ -114,7 +104,7 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      *
      */
     private void deptSetPids(Dept dept) {
-        if (ToolUtil.isEmpty(dept.getPid()) || dept.getPid().equals(0L)) {
+        if (null == dept || null == dept.getPid() || dept.getPid().equals(0L)) {
             dept.setPid(0L);
             dept.setPids("[0],");
         } else {

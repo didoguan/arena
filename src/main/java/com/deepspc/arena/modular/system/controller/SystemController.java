@@ -3,6 +3,7 @@ package com.deepspc.arena.modular.system.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.deepspc.arena.core.common.constant.DefaultAvatar;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
@@ -18,7 +19,6 @@ import com.deepspc.arena.modular.system.entity.User;
 import com.deepspc.arena.modular.system.factory.UserFactory;
 import com.deepspc.arena.modular.system.service.FileInfoService;
 import com.deepspc.arena.modular.system.service.UserService;
-import com.deepspc.arena.utils.ToolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -110,7 +110,7 @@ public class SystemController extends BaseController {
                                @RequestParam("formId") String formId,
                                @RequestParam("treeUrl") String treeUrl, Model model) {
 
-        if (ToolUtil.isOneEmpty(formName, formId, treeUrl)) {
+        if (StrUtil.isBlank(formName) || StrUtil.isBlank(formId) || StrUtil.isBlank(treeUrl)) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -135,7 +135,7 @@ public class SystemController extends BaseController {
     @ResponseBody
     public Object uploadAvatar(@RequestParam String avatar) {
 
-        if (ToolUtil.isEmpty(avatar)) {
+        if (StrUtil.isBlank(avatar)) {
             throw new ServiceException("请求头像为空");
         }
 
@@ -165,7 +165,7 @@ public class SystemController extends BaseController {
         String avatar = user.getAvatar();
 
         //如果头像id为空就返回默认的
-        if (ToolUtil.isEmpty(avatar)) {
+        if (StrUtil.isBlank(avatar)) {
             avatar = DefaultAvatar.BASE_64_AVATAR;
         } else {
             FileInfo fileInfo = fileInfoService.getById(avatar);

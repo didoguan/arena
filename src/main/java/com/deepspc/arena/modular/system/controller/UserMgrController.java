@@ -78,7 +78,7 @@ public class UserMgrController extends BaseController {
     @Permission
     @RequestMapping("/role_assign")
     public String roleAssign(@RequestParam Long userId, Model model) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -93,7 +93,7 @@ public class UserMgrController extends BaseController {
     @Permission
     @RequestMapping("/user_edit")
     public String userEdit(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -109,7 +109,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/getUserInfo")
     @ResponseBody
     public Object getUserInfo(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -133,7 +133,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/changePwd")
     @ResponseBody
     public Object changePwd(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword) {
-        if (ToolUtil.isOneEmpty(oldPassword, newPassword)) {
+        if (StrUtil.isBlank(oldPassword) || StrUtil.isBlank(newPassword)) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -216,7 +216,7 @@ public class UserMgrController extends BaseController {
     @Permission
     @ResponseBody
     public ResponseData delete(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -231,7 +231,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/view/{userId}")
     @ResponseBody
     public User view(@PathVariable Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -248,7 +248,7 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData reset(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -269,7 +269,7 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData freeze(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -292,7 +292,7 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData unfreeze(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
+        if (null == userId) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
@@ -310,7 +310,7 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds) {
-        if (ToolUtil.isOneEmpty(userId, roleIds)) {
+        if (null == userId || StrUtil.isBlank(roleIds)) {
             throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
                                         BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }

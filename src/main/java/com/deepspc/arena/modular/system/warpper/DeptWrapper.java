@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.page.PageResult;
 import com.deepspc.arena.core.warpper.BaseControllerWrapper;
-import com.deepspc.arena.utils.ToolUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ public class DeptWrapper extends BaseControllerWrapper {
     protected void wrapTheMap(Map<String, Object> map) {
         Long pid = (Long) map.get("pid");
 
-        if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
+        if (null == pid || pid.equals(0l)) {
             map.put("pName", "--");
         } else {
             map.put("pName", ConstantFactory.me().getDeptName(pid));

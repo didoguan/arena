@@ -2,7 +2,6 @@ package com.deepspc.arena.core.beetl;
 
 import com.deepspc.arena.config.properties.AppNameProperties;
 import com.deepspc.arena.core.shiro.ShiroExt;
-import com.deepspc.arena.utils.ToolUtil;
 import org.beetl.core.Context;
 import org.beetl.core.Function;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
@@ -35,7 +34,6 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
         shared.put("systemName", appNameProperties.getName());
         groupTemplate.setSharedVars(shared);
 
-        groupTemplate.registerFunctionPackage("tool", new ToolUtil());
         groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
 
         groupTemplate.registerFunction("env", new Function() {

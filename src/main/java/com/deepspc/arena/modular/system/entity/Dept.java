@@ -3,6 +3,8 @@ package com.deepspc.arena.modular.system.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -35,11 +37,13 @@ public class Dept implements Serializable {
     /**
      * 简称
      */
+    @NotEmpty(message="部门简称不能为空")
     @TableField("SIMPLE_NAME")
     private String simpleName;
     /**
      * 全称
      */
+    @NotEmpty(message="部门全称不能为空")
     @TableField("FULL_NAME")
     private String fullName;
     /**

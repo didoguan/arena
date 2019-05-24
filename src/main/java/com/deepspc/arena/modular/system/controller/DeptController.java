@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -122,7 +123,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/add")
     @Permission
     @ResponseBody
-    public ResponseData add(Dept dept) {
+    public ResponseData add(@Valid Dept dept) {
         this.deptService.addDept(dept);
         return SUCCESS_TIP;
     }
@@ -163,7 +164,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/update")
     @Permission
     @ResponseBody
-    public ResponseData update(Dept dept) {
+    public ResponseData update(@Valid Dept dept) {
         deptService.editDept(dept);
         return SUCCESS_TIP;
     }

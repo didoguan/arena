@@ -54,7 +54,8 @@ public class ToolUtil {
             }
             return md5StrBuff.toString();
         } catch (Exception e) {
-            throw new ServiceException(CoreExceptionEnum.ENCRYPT_ERROR);
+            throw new ServiceException(CoreExceptionEnum.ENCRYPT_ERROR.getCode(),
+                    CoreExceptionEnum.ENCRYPT_ERROR.getMessage());
         }
     }
 
@@ -102,8 +103,6 @@ public class ToolUtil {
     /**
      * 获取ip地址
      *
-     * @author fengshuonan
-     * @Date 2018/5/15 下午6:36
      */
     public static String getIP() {
         try {
@@ -147,56 +146,4 @@ public class ToolUtil {
         return System.getProperty("java.io.tmpdir");
     }
 
-    /**
-     * 对象组中是否存在空对象
-     *
-     */
-    public static boolean isOneEmpty(Object... os) {
-        for (Object o : os) {
-            if (isEmpty(o)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 对象是否为空
-     *
-     */
-    public static boolean isEmpty(Object o) {
-        if (o == null) {
-            return true;
-        }
-        if (o instanceof String) {
-            if (o.toString().trim().equals("")) {
-                return true;
-            }
-        } else if (o instanceof List) {
-            if (((List) o).size() == 0) {
-                return true;
-            }
-        } else if (o instanceof Map) {
-            if (((Map) o).size() == 0) {
-                return true;
-            }
-        } else if (o instanceof Set) {
-            if (((Set) o).size() == 0) {
-                return true;
-            }
-        } else if (o instanceof Object[]) {
-            if (((Object[]) o).length == 0) {
-                return true;
-            }
-        } else if (o instanceof int[]) {
-            if (((int[]) o).length == 0) {
-                return true;
-            }
-        } else if (o instanceof long[]) {
-            if (((long[]) o).length == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

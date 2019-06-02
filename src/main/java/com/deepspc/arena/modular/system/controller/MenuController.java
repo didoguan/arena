@@ -1,6 +1,7 @@
 package com.deepspc.arena.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.deepspc.arena.core.common.annotion.BussinessLog;
 import com.deepspc.arena.core.common.annotion.Permission;
@@ -19,7 +20,6 @@ import com.deepspc.arena.modular.system.model.MenuDto;
 import com.deepspc.arena.modular.system.service.MenuService;
 import com.deepspc.arena.modular.system.service.UserService;
 import com.deepspc.arena.modular.system.warpper.MenuWrapper;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +73,9 @@ public class MenuController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @RequestMapping(value = "/menu_edit")
     public String menuEdit(@RequestParam Long menuId) {
-        if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == menuId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //获取菜单当前信息，记录日志用
@@ -91,7 +93,7 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/edit")
     @BussinessLog(value = "修改菜单", key = "name", dict = MenuDict.class)
     @ResponseBody
-    public ResponseData edit(MenuDto menu) {
+    public ResponseData edit(@Valid MenuDto menu) {
 
         //设置父级菜单编号
         Menu resultMenu = this.menuService.menuSetPcode(menu);
@@ -127,7 +129,7 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/add")
     @BussinessLog(value = "菜单新增", key = "name", dict = MenuDict.class)
     @ResponseBody
-    public ResponseData add(MenuDto menu) {
+    public ResponseData add(@Valid MenuDto menu) {
         this.menuService.addMenu(menu);
         return SUCCESS_TIP;
     }
@@ -141,8 +143,9 @@ public class MenuController extends BaseController {
     @BussinessLog(value = "删除菜单", key = "menuId", dict = MenuDict.class)
     @ResponseBody
     public ResponseData remove(@RequestParam Long menuId) {
-        if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == menuId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //缓存菜单的名称
@@ -160,8 +163,9 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/view/{menuId}")
     @ResponseBody
     public ResponseData view(@PathVariable Long menuId) {
-        if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == menuId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         Menu menu = this.menuService.getById(menuId);
         return ResponseData.success(menu);
@@ -174,8 +178,9 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/getMenuInfo")
     @ResponseBody
     public ResponseData getMenuInfo(@RequestParam Long menuId) {
-        if (ToolUtil.isEmpty(menuId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == menuId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                    BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         Menu menu = this.menuService.getById(menuId);
@@ -220,7 +225,7 @@ public class MenuController extends BaseController {
     @ResponseBody
     public List<ZTreeNode> menuTreeListByRoleId(@PathVariable Long roleId) {
         List<Long> menuIds = this.menuService.getMenuIdsByRoleId(roleId);
-        if (ToolUtil.isEmpty(menuIds)) {
+        if (null == menuIds || menuIds.isEmpty()) {
             return this.menuService.menuTreeList();
         } else {
             return this.menuService.menuTreeListByMenuIds(menuIds);

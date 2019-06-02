@@ -2,6 +2,8 @@ package com.deepspc.arena.modular.system.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -21,10 +23,12 @@ public class MenuDto implements Serializable {
     /**
      * 菜单编号
      */
+    @NotEmpty(message="菜单编号不能为空")
     private String code;
     /**
      * 菜单父级id
      */
+    @NotNull(message="父级菜单不能为空")
     private Long pid;
     /**
      * 菜单父编号
@@ -37,6 +41,7 @@ public class MenuDto implements Serializable {
     /**
      * 菜单名称
      */
+    @NotEmpty(message="菜单名称不能为空")
     private String name;
     /**
      * 菜单图标

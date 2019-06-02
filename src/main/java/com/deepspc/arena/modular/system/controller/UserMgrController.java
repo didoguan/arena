@@ -13,7 +13,6 @@ import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.datascope.DataScope;
 import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.core.reqres.response.ResponseData;
@@ -34,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -78,8 +78,9 @@ public class UserMgrController extends BaseController {
     @Permission
     @RequestMapping("/role_assign")
     public String roleAssign(@RequestParam Long userId, Model model) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         model.addAttribute("userId", userId);
         return PREFIX + "user_roleassign.html";
@@ -92,8 +93,9 @@ public class UserMgrController extends BaseController {
     @Permission
     @RequestMapping("/user_edit")
     public String userEdit(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         User user = this.userService.getById(userId);
         LogObjectHolder.me().set(user);
@@ -107,8 +109,9 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/getUserInfo")
     @ResponseBody
     public Object getUserInfo(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new RequestEmptyException();
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         this.userService.assertAuth(userId);
@@ -130,8 +133,9 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/changePwd")
     @ResponseBody
     public Object changePwd(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword) {
-        if (ToolUtil.isOneEmpty(oldPassword, newPassword)) {
-            throw new RequestEmptyException();
+        if (StrUtil.isBlank(oldPassword) || StrUtil.isBlank(newPassword)) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.userService.changePwd(oldPassword, newPassword);
         return SUCCESS_TIP;
@@ -180,7 +184,8 @@ public class UserMgrController extends BaseController {
     @ResponseBody
     public ResponseData add(@Valid UserDto user, BindingResult result) {
         if (result.hasErrors()) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.SERVER_ERROR.getCode(),
+                                        BizExceptionEnum.SERVER_ERROR.getMessage());
         }
         this.userService.addUser(user);
         return SUCCESS_TIP;
@@ -195,7 +200,8 @@ public class UserMgrController extends BaseController {
     @ResponseBody
     public ResponseData edit(@Valid UserDto user, BindingResult result) {
         if (result.hasErrors()) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+            throw new ServiceException(BizExceptionEnum.SERVER_ERROR.getCode(),
+                                        BizExceptionEnum.SERVER_ERROR.getMessage());
         }
         this.userService.editUser(user);
         return SUCCESS_TIP;
@@ -210,8 +216,9 @@ public class UserMgrController extends BaseController {
     @Permission
     @ResponseBody
     public ResponseData delete(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.userService.deleteUser(userId);
         return SUCCESS_TIP;
@@ -224,8 +231,9 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/view/{userId}")
     @ResponseBody
     public User view(@PathVariable Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.userService.assertAuth(userId);
         return this.userService.getById(userId);
@@ -240,8 +248,9 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData reset(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.userService.assertAuth(userId);
         User user = this.userService.getById(userId);
@@ -260,12 +269,14 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData freeze(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         //不能冻结超级管理员
         if (userId.equals(Const.ADMIN_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_FREEZE_ADMIN);
+            throw new ServiceException(BizExceptionEnum.CANT_FREEZE_ADMIN.getCode(),
+                                        BizExceptionEnum.CANT_FREEZE_ADMIN.getMessage());
         }
         this.userService.assertAuth(userId);
         this.userService.setStatus(userId, BizEnum.FREEZED.getCode());
@@ -281,8 +292,9 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData unfreeze(@RequestParam Long userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         this.userService.assertAuth(userId);
         this.userService.setStatus(userId, BizEnum.ENABLE.getCode());
@@ -298,12 +310,14 @@ public class UserMgrController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public ResponseData setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds) {
-        if (ToolUtil.isOneEmpty(userId, roleIds)) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        if (null == userId || StrUtil.isBlank(roleIds)) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
         //不能修改超级管理员
         if (userId.equals(Const.ADMIN_ID)) {
-            throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+            throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN.getCode(),
+                                        BizExceptionEnum.CANT_CHANGE_ADMIN.getMessage());
         }
         this.userService.assertAuth(userId);
         this.userService.setRoles(userId, roleIds);
@@ -316,14 +330,14 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/upload")
     @ResponseBody
-    public String upload(@RequestPart("file") MultipartFile picture) {
+    public String upload(@RequestPart("file") MultipartFile picture) throws IOException, IllegalStateException {
 
         String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(picture.getOriginalFilename());
         try {
             String fileSavePath = stoneProperties.getFileUploadPath();
             picture.transferTo(new File(fileSavePath + pictureName));
-        } catch (Exception e) {
-            throw new ServiceException(BizExceptionEnum.UPLOAD_ERROR);
+        } catch (IOException | IllegalStateException e) {
+            throw e;
         }
         return pictureName;
     }

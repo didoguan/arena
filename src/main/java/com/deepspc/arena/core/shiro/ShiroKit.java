@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * shiro工具类
  *
- * @author dafei, Chill Zhuang
  */
 public class ShiroKit {
 
@@ -85,7 +84,8 @@ public class ShiroKit {
      */
     public static ShiroUser getUserNotNull() {
         if (isGuest()) {
-            throw new ServiceException(BizExceptionEnum.NOT_LOGIN);
+            throw new ServiceException(BizExceptionEnum.NOT_LOGIN.getCode(),
+                                        BizExceptionEnum.NOT_LOGIN.getMessage());
         } else {
             return (ShiroUser) getSubject().getPrincipals().getPrimaryPrincipal();
         }

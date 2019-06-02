@@ -6,15 +6,12 @@ import com.deepspc.arena.core.common.annotion.BussinessLog;
 import com.deepspc.arena.core.common.constant.dictmap.NoticeMap;
 import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
-import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.core.shiro.ShiroKit;
 import com.deepspc.arena.modular.base.controller.BaseController;
 import com.deepspc.arena.modular.system.entity.Notice;
 import com.deepspc.arena.modular.system.service.NoticeService;
 import com.deepspc.arena.modular.system.warpper.NoticeWrapper;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -100,12 +98,8 @@ public class NoticeController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     @BussinessLog(value = "新增通知", key = "title", dict = NoticeMap.class)
-    public Object add(Notice notice) {
-        if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
-        }
+    public Object add(@Valid Notice notice) {
         notice.setCreateUser(ShiroKit.getUserNotNull().getId());
-        notice.setCreateTime(new Date());
         this.noticeService.save(notice);
         return SUCCESS_TIP;
     }
@@ -134,10 +128,7 @@ public class NoticeController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     @BussinessLog(value = "修改通知", key = "title", dict = NoticeMap.class)
-    public Object update(Notice notice) {
-        if (ToolUtil.isOneEmpty(notice, notice.getNoticeId(), notice.getTitle(), notice.getContent())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
-        }
+    public Object update(@Valid Notice notice) {
         Notice old = this.noticeService.getById(notice.getNoticeId());
         old.setTitle(notice.getTitle());
         old.setContent(notice.getContent());

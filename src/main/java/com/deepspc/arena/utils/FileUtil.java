@@ -17,11 +17,12 @@ import java.nio.channels.FileChannel;
 public class FileUtil {
     private static Logger log = LoggerFactory.getLogger(FileUtil.class);
 
-    public static byte[] toByteArray(String filename) {
+    public static byte[] toByteArray(String filename) throws IOException {
         File f = new File(filename);
         if (!f.exists()) {
             log.error("文件未找到！" + filename);
-            throw new ServiceException(CoreExceptionEnum.FILE_NOT_FOUND);
+            throw new ServiceException(CoreExceptionEnum.FILE_NOT_FOUND.getCode(),
+                    CoreExceptionEnum.FILE_NOT_FOUND.getMessage());
         }
         FileChannel channel = null;
         FileInputStream fs = null;
@@ -35,17 +36,17 @@ public class FileUtil {
             }
             return byteBuffer.array();
         } catch (IOException e) {
-            throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR);
+            throw e;
         } finally {
             try {
                 channel.close();
             } catch (IOException e) {
-                throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR);
+                throw e;
             }
             try {
                 fs.close();
             } catch (IOException e) {
-                throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR);
+                throw e;
             }
         }
     }

@@ -25,6 +25,10 @@ public class RoleDto implements Serializable {
      */
     private String name;
     /**
+     * 角色编码
+     */
+    private String roleCode;
+    /**
      * 提示
      */
     private String description;

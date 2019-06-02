@@ -5,17 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
-import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.modular.system.entity.Dict;
 import com.deepspc.arena.modular.system.mapper.DictMapper;
 import com.deepspc.arena.modular.system.model.DictDto;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,11 +32,7 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
      */
     public void addDict(DictDto dictDto) {
 
-        if (ToolUtil.isOneEmpty(dictDto, dictDto.getCode(), dictDto.getName())) {
-            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
-        }
-
-        if (ToolUtil.isEmpty(dictDto.getDictTypeId())) {
+        if (null == dictDto.getDictTypeId()) {
             this.addDictType(dictDto);
         } else {
             this.addDictItem(dictDto);
@@ -57,7 +49,6 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //类型的父级id都为0
         dict.setPid(0L);
-        dict.setCreateTime(new Date());
         this.save(dict);
     }
 
@@ -71,7 +62,6 @@ public class DictService extends ServiceImpl<DictMapper, Dict> {
 
         //字典的父级id为字典tyeId
         dict.setPid(dictDto.getDictTypeId());
-        dict.setCreateTime(new Date());
         this.save(dict);
     }
 

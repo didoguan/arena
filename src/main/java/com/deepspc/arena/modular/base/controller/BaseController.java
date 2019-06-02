@@ -84,23 +84,20 @@ public class BaseController {
     /**
      * 返回前台文件流
      *
-     * @author fengshuonan
-     * @date 2017年2月28日 下午2:53:19
      */
     protected ResponseEntity<InputStreamResource> renderFile(String fileName, String filePath) {
         try {
             final FileInputStream inputStream = new FileInputStream(filePath);
             return renderFile(fileName, inputStream);
         } catch (FileNotFoundException e) {
-            throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR);
+            throw new ServiceException(CoreExceptionEnum.FILE_READING_ERROR.getCode(),
+                                        CoreExceptionEnum.FILE_READING_ERROR.getMessage());
         }
     }
 
     /**
      * 返回前台文件流
      *
-     * @author fengshuonan
-     * @date 2017年2月28日 下午2:53:19
      */
     protected ResponseEntity<InputStreamResource> renderFile(String fileName, byte[] fileBytes) {
         return renderFile(fileName, new ByteArrayInputStream(fileBytes));

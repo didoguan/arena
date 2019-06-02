@@ -24,15 +24,20 @@ public class Role implements Serializable {
     /**
      * 父角色id
      */
-    @TableField("PID")
+    @TableField(value="PID", strategy = FieldStrategy.NOT_NULL)
     private Long pid;
     /**
      * 角色名称
      */
-    @TableField("NAME")
+    @TableField(value="NAME", strategy = FieldStrategy.NOT_NULL)
     private String name;
     /**
-     * 提示
+     * 角色编码
+     */
+    @TableField(value="ROLE_CODE", strategy = FieldStrategy.NOT_NULL)
+    private String roleCode;
+    /**
+     * 角色描述
      */
     @TableField("DESCRIPTION")
     private String description;
@@ -73,6 +78,7 @@ public class Role implements Serializable {
                 ", roleId=" + roleId +
                 ", pid=" + pid +
                 ", name=" + name +
+                ", roleCode=" + roleCode +
                 ", description=" + description +
                 ", sort=" + sort +
                 ", version=" + version +

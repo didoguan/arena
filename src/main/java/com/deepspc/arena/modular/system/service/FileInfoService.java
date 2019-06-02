@@ -36,7 +36,8 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
     public void uploadAvatar(String avatar) {
         ShiroUser currentUser = ShiroKit.getUser();
         if (currentUser == null) {
-            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
+            throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER.getCode(),
+                    CoreExceptionEnum.NO_CURRENT_USER.getMessage());
         }
 
         User user = userService.getById(currentUser.getId());
@@ -45,7 +46,6 @@ public class FileInfoService extends ServiceImpl<FileInfoMapper, FileInfo> {
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileId(IdWorker.getIdStr());
         fileInfo.setFileData(avatar);
-        fileInfo.setCreateTime(new Date());
         this.save(fileInfo);
 
         //更新用户的头像

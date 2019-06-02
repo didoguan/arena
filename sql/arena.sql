@@ -357,6 +357,7 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
   `ROLE_ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `PID` bigint(20) DEFAULT NULL COMMENT '父角色id',
+  `ROLE_CODE` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色编码',
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色名称',
   `DESCRIPTION` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '提示',
   `SORT` int(11) DEFAULT NULL COMMENT '序号',

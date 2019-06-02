@@ -3,7 +3,7 @@ package com.deepspc.arena.core.exception;
 /**
  * @Description 所有业务异常的枚举
  */
-public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
+public enum BizExceptionEnum {
 
     /**
      * 字典
@@ -48,7 +48,6 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     MENU_PCODE_COINCIDENCE(400, "菜单编号和副编号不能一致"),
     EXISTED_THE_MENU(400, "菜单编号重复，不能添加"),
     DICT_MUST_BE_NUMBER(400, "字典的值必须为数字"),
-    REQUEST_NULL(400, "请求有错误"),
     SESSION_TIMEOUT(400, "会话超时"),
     SERVER_ERROR(500, "服务器异常"),
 
@@ -66,7 +65,9 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     /**
      * 其他
      */
-    AUTH_REQUEST_ERROR(400, "账号密码错误");
+    AUTH_REQUEST_ERROR(400, "账号密码错误"),
+
+    FIELD_UNAVAIL(412, "字段不符合要求");
 
     BizExceptionEnum(int code, String message) {
         this.code = code;
@@ -77,7 +78,6 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
 
     private String message;
 
-    @Override
     public Integer getCode() {
         return code;
     }
@@ -86,7 +86,6 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
         this.code = code;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }

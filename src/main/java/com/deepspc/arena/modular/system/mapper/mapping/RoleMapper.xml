@@ -7,6 +7,7 @@
         <id column="ROLE_ID" property="roleId"/>
         <result column="PID" property="pid"/>
         <result column="NAME" property="name"/>
+        <result column="ROLE_CODE" property="roleCode"/>
         <result column="DESCRIPTION" property="description"/>
         <result column="SORT" property="sort"/>
         <result column="VERSION" property="version"/>
@@ -18,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ROLE_ID AS roleId, PID AS pid, NAME AS name, DESCRIPTION AS description, SORT AS sort, VERSION AS version, CREATE_TIME AS createTime, UPDATE_TIME AS updateTime, CREATE_USER AS createUser, UPDATE_USER AS updateUser
+        ROLE_ID AS roleId, PID AS pid, NAME AS name, ROLE_CODE AS roleCode, DESCRIPTION AS description, SORT AS sort, VERSION AS version, CREATE_TIME AS createTime, UPDATE_TIME AS updateTime, CREATE_USER AS createUser, UPDATE_USER AS updateUser
     </sql>
 
     <select id="selectRoles" resultType="map">

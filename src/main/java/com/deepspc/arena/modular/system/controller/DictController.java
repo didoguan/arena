@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -38,8 +39,6 @@ public class DictController extends BaseController {
     /**
      * 跳转到字典管理首页
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:21 PM
      */
     @RequestMapping("")
     public String index() {
@@ -49,8 +48,6 @@ public class DictController extends BaseController {
     /**
      * 跳转到添加字典类型
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:21 PM
      */
     @RequestMapping("/dict_add_type")
     public String deptAddType() {
@@ -60,8 +57,6 @@ public class DictController extends BaseController {
     /**
      * 跳转到添加字典条目
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:22 PM
      */
     @RequestMapping("/dict_add_item")
     public String deptAddItem(@RequestParam("dictId") Long dictId, Model model) {
@@ -73,13 +68,11 @@ public class DictController extends BaseController {
     /**
      * 新增字典
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:22 PM
      */
     @RequestMapping(value = "/add")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData add(DictDto dictDto) {
+    public ResponseData add(@Valid DictDto dictDto) {
         this.dictService.addDict(dictDto);
         return SUCCESS_TIP;
     }
@@ -87,8 +80,6 @@ public class DictController extends BaseController {
     /**
      * 获取所有字典列表
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:22 PM
      */
     @RequestMapping(value = "/list")
     @Permission(Const.ADMIN_NAME)
@@ -102,8 +93,6 @@ public class DictController extends BaseController {
     /**
      * 删除字典记录
      *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:22 PM
      */
     @BussinessLog(value = "删除字典记录", key = "dictId", dict = DictMap.class)
     @RequestMapping(value = "/delete")

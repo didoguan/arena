@@ -34,4 +34,4 @@ mybatis-plus:
   typeAliasesPackage: com.deepspc.arena.modular.*.entity
 
 log:
-  path: stone-logs
+  path: arena-logs

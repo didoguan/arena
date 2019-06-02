@@ -9,7 +9,8 @@ import com.deepspc.arena.core.common.constant.factory.ConstantFactory;
 import com.deepspc.arena.core.common.node.TreeviewNode;
 import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
-import com.deepspc.arena.core.exception.RequestEmptyException;
+import com.deepspc.arena.core.exception.BizExceptionEnum;
+import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.log.LogObjectHolder;
 import com.deepspc.arena.core.reqres.response.ResponseData;
 import com.deepspc.arena.core.tree.DefaultTreeBuildFactory;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -69,8 +71,9 @@ public class DeptController extends BaseController {
     @RequestMapping("/dept_update")
     public String deptUpdate(@RequestParam("deptId") Long deptId) {
 
-        if (ToolUtil.isEmpty(deptId)) {
-            throw new RequestEmptyException();
+        if (null == deptId) {
+            throw new ServiceException(BizExceptionEnum.FIELD_UNAVAIL.getCode(),
+                                        BizExceptionEnum.FIELD_UNAVAIL.getMessage());
         }
 
         //缓存部门修改前详细信息
@@ -120,7 +123,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/add")
     @Permission
     @ResponseBody
-    public ResponseData add(Dept dept) {
+    public ResponseData add(@Valid Dept dept) {
         this.deptService.addDept(dept);
         return SUCCESS_TIP;
     }
@@ -161,7 +164,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/update")
     @Permission
     @ResponseBody
-    public ResponseData update(Dept dept) {
+    public ResponseData update(@Valid Dept dept) {
         deptService.editDept(dept);
         return SUCCESS_TIP;
     }

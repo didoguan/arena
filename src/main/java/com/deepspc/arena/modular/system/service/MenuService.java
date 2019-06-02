@@ -11,18 +11,15 @@ import com.deepspc.arena.core.common.node.ZTreeNode;
 import com.deepspc.arena.core.common.page.LayuiPageFactory;
 import com.deepspc.arena.core.enums.BizEnum;
 import com.deepspc.arena.core.exception.BizExceptionEnum;
-import com.deepspc.arena.core.exception.RequestEmptyException;
 import com.deepspc.arena.core.exception.ServiceException;
 import com.deepspc.arena.core.listener.ConfigListener;
 import com.deepspc.arena.modular.system.entity.Menu;
 import com.deepspc.arena.modular.system.mapper.MenuMapper;
 import com.deepspc.arena.modular.system.model.MenuDto;
-import com.deepspc.arena.utils.ToolUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,21 +40,17 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
     @Transactional
     public void addMenu(MenuDto menuDto) {
 
-        if (ToolUtil.isOneEmpty(menuDto, menuDto.getCode(), menuDto.getName(), menuDto.getPid(), menuDto.getMenuFlag(), menuDto.getUrl())) {
-            throw new RequestEmptyException();
-        }
-
         //判断是否已经存在该编号
         String existedMenuName = ConstantFactory.me().getMenuNameByCode(menuDto.getCode());
         if (StrUtil.isNotEmpty(existedMenuName)) {
-            throw new ServiceException(BizExceptionEnum.EXISTED_THE_MENU);
+            throw new ServiceException(BizExceptionEnum.EXISTED_THE_MENU.getCode(),
+                                        BizExceptionEnum.EXISTED_THE_MENU.getMessage());
         }
 
         //组装属性，设置父级菜单编号
         Menu resultMenu = this.menuSetPcode(menuDto);
 
         resultMenu.setStatus(BizEnum.ENABLE.getCode());
-        resultMenu.setCreateTime(new Date());
         this.save(resultMenu);
     }
 
@@ -199,7 +192,8 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         Menu resultMenu = new Menu();
         BeanUtil.copyProperties(menuParam, resultMenu);
 
-        if (ToolUtil.isEmpty(menuParam.getPid()) || menuParam.getPid().equals(0L)) {
+        if (null == menuParam.getPid() ||
+                (null != menuParam.getPid() && menuParam.getPid().equals(0L))) {
             resultMenu.setPcode("0");
             resultMenu.setPcodes("[0],");
             resultMenu.setLevels(1);
@@ -211,7 +205,8 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
 
             //如果编号和父编号一致会导致无限递归
             if (menuParam.getCode().equals(menuParam.getPcode())) {
-                throw new ServiceException(BizExceptionEnum.MENU_PCODE_COINCIDENCE);
+                throw new ServiceException(BizExceptionEnum.MENU_PCODE_COINCIDENCE.getCode(),
+                                            BizExceptionEnum.MENU_PCODE_COINCIDENCE.getMessage());
             }
 
             resultMenu.setLevels(pLevels + 1);

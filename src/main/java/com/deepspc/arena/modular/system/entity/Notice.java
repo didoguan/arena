@@ -3,6 +3,7 @@ package com.deepspc.arena.modular.system.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,11 +26,13 @@ public class Notice implements Serializable {
     /**
      * 标题
      */
+    @NotEmpty(message="标题不能为空")
     @TableField("TITLE")
     private String title;
     /**
      * 内容
      */
+    @NotEmpty(message="内容不能为空")
     @TableField("CONTENT")
     private String content;
     /**
